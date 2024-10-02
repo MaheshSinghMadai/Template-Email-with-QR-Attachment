@@ -1,6 +1,9 @@
 ﻿using FluentEmailDemo.EmailService;
 using FluentEmailDemo.Entity;
 using Microsoft.AspNetCore.Mvc;
+using System.Drawing;
+using ZXing;
+using ZXing.QrCode;
 
 namespace FluentEmailDemo.Controllers
 {

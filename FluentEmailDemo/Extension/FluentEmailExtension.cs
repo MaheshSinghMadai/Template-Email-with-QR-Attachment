@@ -1,4 +1,7 @@
-﻿namespace FluentEmailDemo.Extension
+﻿using System.Net.Mail;
+using System.Net;
+
+namespace FluentEmailDemo.Extension
 {
     public static class FluentEmailExtension
     {
@@ -11,9 +14,10 @@
             var port = emailSettings.GetValue<int>("Port");
             var userName = emailSettings["UserName"];
             var password = emailSettings["Password"];
+            var enableSSL = emailSettings.GetValue<bool>("SMTPSetting:EnableSSL");
 
             services.AddFluentEmail(defaultFromEmail)
-                    .AddSmtpSender(host, port);
+                    .AddSmtpSender(host, port,userName,password);
         }
     }
 }

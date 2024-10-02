@@ -49,7 +49,6 @@ namespace QRCodeGenerator.Controllers
             result.Save(webRootPath + "\\Images\\QrCodeNew.png");
             ViewBag.URL = "\\Images\\QrCodeNew.png";
             return View();
-
         }
 
         public IActionResult ReadQRCode()
