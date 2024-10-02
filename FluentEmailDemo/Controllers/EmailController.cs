@@ -1,7 +1,9 @@
-﻿using FluentEmailDemo.EmailService;
+﻿using FluentEmail.Core;
+using FluentEmailDemo.EmailService;
 using FluentEmailDemo.Entity;
 using Microsoft.AspNetCore.Mvc;
 using System.Drawing;
+using System.Drawing.Imaging;
 using ZXing;
 using ZXing.QrCode;
 
@@ -28,5 +30,18 @@ namespace FluentEmailDemo.Controllers
             await _emailService.SendEmail(emailMetadata);
             return Ok();
         }
+
+        [HttpPost("emailwithqrCode")]
+        public async Task<IActionResult> SendEmailWithAttachment(string qrStringCode)
+        {
+
+            EmailMetadata emailMetadata = new("maheshsinghmadai@gmail.com",
+            "FluentEmail Test email",
+            "This is a test email from FluentEmail.");
+
+            await _emailService.SendWithAttachment(emailMetadata, qrStringCode);
+
+            return Ok();
+        }  
     }
 }
