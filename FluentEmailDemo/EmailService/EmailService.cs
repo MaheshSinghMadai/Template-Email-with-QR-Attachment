@@ -4,7 +4,6 @@ using System.Drawing;
 using ZXing.QrCode;
 using ZXing;
 using FluentEmail.Core.Models;
-using System.IO;
 
 namespace FluentEmailDemo.EmailService
 {
@@ -43,7 +42,7 @@ namespace FluentEmailDemo.EmailService
         public byte[] GenerateQRCode(string name, DateTime appointmentDateTime)
         {
             // Combine the data into a single string
-            string qrCodeString = $"{name}|{appointmentDateTime:yyyy-MM-dd HH:mm}";
+            string qrCodeString = $"{name}\nVisitDate: {appointmentDateTime:yyyy-MM-dd HH:mm}";
 
             var writer = new QRCodeWriter();
             var resultBit = writer.encode(qrCodeString, BarcodeFormat.QR_CODE, 200, 200);

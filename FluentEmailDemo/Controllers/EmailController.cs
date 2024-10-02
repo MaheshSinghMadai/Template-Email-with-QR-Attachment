@@ -1,11 +1,6 @@
-﻿using FluentEmail.Core;
-using FluentEmailDemo.EmailService;
+﻿using FluentEmailDemo.EmailService;
 using FluentEmailDemo.Entity;
 using Microsoft.AspNetCore.Mvc;
-using System.Drawing;
-using System.Drawing.Imaging;
-using ZXing;
-using ZXing.QrCode;
 
 namespace FluentEmailDemo.Controllers
 {
@@ -36,7 +31,7 @@ namespace FluentEmailDemo.Controllers
         {
             EmailMetadata emailMetadata = new(request.Email,
             "Appointment Confirmation",
-             $"Your appointment is scheduled for {request.AppointmentDateTime:g}. Please find the QR code attached.");
+             $"Your visit date is scheduled for {request.AppointmentDateTime:g}. Please find the QR code attached for verification at site.");
 
             await _emailService.SendWithAttachment(emailMetadata, request.Name, request.AppointmentDateTime);
 
