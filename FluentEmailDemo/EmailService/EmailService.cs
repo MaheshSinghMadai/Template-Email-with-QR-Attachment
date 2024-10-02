@@ -22,9 +22,9 @@ namespace FluentEmailDemo.EmailService
                                    .Body(emailMetadata.Body)
                                    .SendAsync();
         }
-        public async Task SendWithAttachment(EmailMetadata emailMetadata, string qrCodeString)
+        public async Task SendWithAttachment(EmailMetadata emailMetadata, string name, DateTime appointmentDateTime)
         {
-            byte[] qrCodeData = GenerateQRCode(qrCodeString);
+            byte[] qrCodeData = GenerateQRCode(name, appointmentDateTime);
 
             var attachment = new Attachment
             {
@@ -40,8 +40,11 @@ namespace FluentEmailDemo.EmailService
                 .SendAsync();
         }
 
-        public byte[] GenerateQRCode(string qrCodeString)
+        public byte[] GenerateQRCode(string name, DateTime appointmentDateTime)
         {
+            // Combine the data into a single string
+            string qrCodeString = $"{name}|{appointmentDateTime:yyyy-MM-dd HH:mm}";
+
             var writer = new QRCodeWriter();
             var resultBit = writer.encode(qrCodeString, BarcodeFormat.QR_CODE, 200, 200);
             var matrix = resultBit;

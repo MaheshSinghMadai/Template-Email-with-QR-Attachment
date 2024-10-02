@@ -32,14 +32,13 @@ namespace FluentEmailDemo.Controllers
         }
 
         [HttpPost("emailwithqrCode")]
-        public async Task<IActionResult> SendEmailWithAttachment(string qrStringCode)
+        public async Task<IActionResult> SendEmailWithAttachment(AppointmentRequest request)
         {
+            EmailMetadata emailMetadata = new(request.Email,
+            "Appointment Confirmation",
+             $"Your appointment is scheduled for {request.AppointmentDateTime:g}. Please find the QR code attached.");
 
-            EmailMetadata emailMetadata = new("maheshsinghmadai@gmail.com",
-            "FluentEmail Test email",
-            "This is a test email from FluentEmail.");
-
-            await _emailService.SendWithAttachment(emailMetadata, qrStringCode);
+            await _emailService.SendWithAttachment(emailMetadata, request.Name, request.AppointmentDateTime);
 
             return Ok();
         }  
