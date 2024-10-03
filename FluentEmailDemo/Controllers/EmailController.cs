@@ -11,8 +11,7 @@ namespace FluentEmailDemo.Controllers
         private readonly IEmailService _emailService;
         public EmailController(IEmailService emailService)
         {
-            _emailService = emailService
-                ?? throw new ArgumentNullException(nameof(emailService));
+            _emailService = emailService ?? throw new ArgumentNullException(nameof(emailService));
         }
 
         [HttpGet("singleemail")]
@@ -36,6 +35,22 @@ namespace FluentEmailDemo.Controllers
             await _emailService.SendWithAttachment(emailMetadata, request.Name, request.AppointmentDateTime);
 
             return Ok();
-        }  
+        }
+
+        [HttpPost("templateemailwithqrCode")]
+        public async Task<IActionResult> SendTemplateEmailWithAttachment(AppointmentRequest request)
+        {
+            AppointmentRequest model = new(request.Name, request.Email, request.AppointmentDateTime);
+
+            EmailMetadata emailMetadata = new(model.Email, "Appointment Confirmation");
+
+            var template = "Hi <b>@Model.Name</b>, <br><br>" +
+            $"Your visit date is scheduled for {request.AppointmentDateTime:g}. Please find the QR code attached for verification at site." +
+            "<br><br> Regards,<br> Mahesh";
+
+            await _emailService.SendTemplateEmailWithAttachment(emailMetadata, template, model,  request.Name, request.AppointmentDateTime);
+
+            return Ok();
+        }
     }
 }

@@ -21,6 +21,7 @@ namespace FluentEmailDemo.EmailService
                                    .Body(emailMetadata.Body)
                                    .SendAsync();
         }
+
         public async Task SendWithAttachment(EmailMetadata emailMetadata, string name, DateTime appointmentDateTime)
         {
             byte[] qrCodeData = GenerateQRCode(name, appointmentDateTime);
@@ -35,6 +36,25 @@ namespace FluentEmailDemo.EmailService
             await fluentEmail.To(emailMetadata.ToAddress)
                 .Subject(emailMetadata.Subject)
                 .Body(emailMetadata.Body, true)
+                .Attach(attachment)
+                .SendAsync();
+        }
+
+        public async Task SendTemplateEmailWithAttachment(EmailMetadata emailMetadata, string template, AppointmentRequest request, string name, DateTime appointmentDateTime)
+        {
+            byte[] qrCodeData = GenerateQRCode(name, appointmentDateTime);
+
+            var attachment = new Attachment
+            {
+                Data = new MemoryStream(qrCodeData),
+                Filename = "QRCode.png",
+                ContentType = "image/png"
+            };
+
+            await fluentEmail.To(emailMetadata.ToAddress)
+                .Subject(emailMetadata.Subject)
+                .Body(emailMetadata.Body, true)
+                .UsingTemplate(template, request)
                 .Attach(attachment)
                 .SendAsync();
         }
