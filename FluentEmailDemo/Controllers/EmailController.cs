@@ -32,7 +32,8 @@ namespace FluentEmailDemo.Controllers
             "Appointment Confirmation",
              $"Your visit date is scheduled for {request.AppointmentDateTime:g}. Please find the QR code attached for verification at site.");
 
-            await _emailService.SendWithAttachment(emailMetadata, request.Name, request.AppointmentDateTime);
+            await _emailService.SendWithAttachment(emailMetadata, request.Name, 
+                                                   request.AppointmentDateTime);
 
             return Ok();
         }
@@ -48,7 +49,8 @@ namespace FluentEmailDemo.Controllers
             $"Your visit date is scheduled for {request.AppointmentDateTime:g}. Please find the QR code attached for verification at site." +
             "<br><br> Regards,<br> Mahesh";
 
-            await _emailService.SendTemplateEmailWithAttachment(emailMetadata, template, model,  request.Name, request.AppointmentDateTime);
+            await _emailService.SendTemplateEmailWithAttachment(emailMetadata, template, model,  
+                                                            request.Name, request.AppointmentDateTime);
 
             return Ok();
         }
@@ -60,13 +62,10 @@ namespace FluentEmailDemo.Controllers
 
             EmailMetadata emailMetadata = new(model.Email, "Appointment Confirmation");
 
-            //var template = "Hi <b>@Model.Name</b>, <br><br>" +
-            //$"Your visit date is scheduled for {request.AppointmentDateTime:g}. Please find the QR code attached for verification at site." +
-            //"<br><br> Regards,<br> Mahesh";
-
             var template = $"{Directory.GetCurrentDirectory()}/MyTemplate.cshtml";
 
-            await _emailService.SendTemplateFromDiskEmailWithAttachment(emailMetadata, template, model, request.Name, request.AppointmentDateTime);
+            await _emailService.SendTemplateFromDiskEmailWithAttachment(emailMetadata, template, 
+                                                model, request.Name, request.AppointmentDateTime);
 
             return Ok();
         }
