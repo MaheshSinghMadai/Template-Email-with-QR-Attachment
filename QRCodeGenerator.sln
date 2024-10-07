@@ -5,7 +5,7 @@ VisualStudioVersion = 17.11.35208.52
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QRCodeGenerator", "QRCodeGenerator\QRCodeGenerator.csproj", "{C683645C-AACE-4533-B444-94991B7F2B59}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentEmailDemo", "FluentEmailDemo\FluentEmailDemo.csproj", "{A6737854-716B-4FEB-9C4C-59CD0F36ED84}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentEmailDemo", "FluentEmailDemo\FluentEmailDemo.csproj", "{A6737854-716B-4FEB-9C4C-59CD0F36ED84}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

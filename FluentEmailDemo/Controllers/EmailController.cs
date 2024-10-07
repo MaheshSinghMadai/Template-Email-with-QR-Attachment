@@ -52,5 +52,23 @@ namespace FluentEmailDemo.Controllers
 
             return Ok();
         }
+
+        [HttpPost("templateemailfromdiskwithqrCode")]
+        public async Task<IActionResult> SendEmailWithRazorTemplateFromFile(AppointmentRequest request)
+        {
+            AppointmentRequest model = new(request.Name, request.Email, request.AppointmentDateTime);
+
+            EmailMetadata emailMetadata = new(model.Email, "Appointment Confirmation");
+
+            //var template = "Hi <b>@Model.Name</b>, <br><br>" +
+            //$"Your visit date is scheduled for {request.AppointmentDateTime:g}. Please find the QR code attached for verification at site." +
+            //"<br><br> Regards,<br> Mahesh";
+
+            var template = $"{Directory.GetCurrentDirectory()}/MyTemplate.cshtml";
+
+            await _emailService.SendTemplateFromDiskEmailWithAttachment(emailMetadata, template, model, request.Name, request.AppointmentDateTime);
+
+            return Ok();
+        }
     }
 }
